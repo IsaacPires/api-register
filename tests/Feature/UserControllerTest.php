@@ -15,6 +15,7 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
 
     //login
+    /** @test */
     public function login_correct_credentials()
     {
         $user = User::factory()->create([
@@ -29,14 +30,14 @@ class UserControllerTest extends TestCase
         $response = $this->postJson('/api/login', $loginData);
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                     'token',
-                     'user' => [
-                         'id',
-                         'name',
-                         'email',
-                     ],
-                 ]);
+                ->assertJsonStructure([
+                    'token',
+                    'user' => [
+                        'id',
+                        'name',
+                        'email',
+                    ],
+                ]);
     }
 
     /** @test */
@@ -52,7 +53,6 @@ class UserControllerTest extends TestCase
         $response->assertStatus(401)
                  ->assertJson(['error' => 'Unauthorized']);
     }
-
 
     //create
     /** @test */
@@ -80,14 +80,14 @@ class UserControllerTest extends TestCase
    * @dataProvider user_bad_name
    * @dataProvider user_bad_password
    */
-     public function registering_a_user_auth_bad_params(array $data)
-     {
+    public function registering_a_user_auth_bad_params(array $data)
+    {
 
-        $response = $this->basicData($data);
+    $response = $this->basicData($data);
 
-        $response->assertStatus(422);
-                
-     }
+    $response->assertStatus(422);
+            
+    }
 
     //delete
     /** @test */
@@ -131,13 +131,12 @@ class UserControllerTest extends TestCase
         ->assertUnauthorized();
     }
 
-     //support methods
+    //support methods
+    private function basicData(array $data)
+    {
+    return $this->postJson('/api/register', $data);
 
-     private function basicData(array $data)
-     {
-        return $this->postJson('/api/register', $data);
-
-     }
+    }
 
     private function createUserToken() 
     {
