@@ -21,3 +21,8 @@ O token possui um prazo de validade, sendo necessário fazer login novamente atr
 ## Documentação detalhada
 
 https://documenter.getpostman.com/view/22555988/2sA3e2eUo5#ed095ae3-ab5e-4d72-b4a8-f65cf21ea042
+
+## Infos adicionais
+
+- PHP 7^;
+- Laravel 8^.
