@@ -45,12 +45,12 @@ class ClientRepository
 
     public function findById($id)
     {   
-        return Client::with('address')->findOrFail($id);
+        return Client::with('address')->find($id);
     }
 
     public function updateWithAddress($id, array $data)
     {
-        $client = Client::findOrFail($id);
+        $client = Client::find($id);
         
         if (isset($data['client'])) {
           $client->update($data['client']);

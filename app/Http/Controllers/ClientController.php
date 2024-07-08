@@ -37,13 +37,21 @@ class ClientController extends Controller
     public function show(int $id)
     {   
         $client = $this->clientRepository->findById($id);
-        
+
+        if (!$client) {
+            return response()->json(['error' => 'Client not found'], 404);
+        }
+
         return response()->json(['data' => $client], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {        
         $client = $this->clientRepository->updateWithAddress($id, $request->all());
+
+        if (!$client) {
+            return response()->json(['error' => 'Client not found'], 404);
+        }
 
         return response()->json(['message' => 'Customer and address updated successfully', 'data' => $client], 200);
     }

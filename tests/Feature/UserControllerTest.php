@@ -3,18 +3,18 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Mockery;
+use App\Helpers\UserHelper;
 use Tymon\JWTAuth\Facades\JWTAuth;
+
+use function App\Helpers\createUserToken;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    //login
     /** @test */
     public function login_correct_credentials()
     {
@@ -54,11 +54,9 @@ class UserControllerTest extends TestCase
                  ->assertJson(['error' => 'Unauthorized']);
     }
 
-    //create
     /** @test */
     public function registering_a_user_auth_accept()
     {
-
         $data = [
             'name' => 'Jon Jones',
             'email' => 'JonJones@example.com',
@@ -75,25 +73,24 @@ class UserControllerTest extends TestCase
                  ]);
     }
 
-    /**
-   * @dataProvider user_bad_mail
-   * @dataProvider user_bad_name
-   * @dataProvider user_bad_password
-   */
-    public function registering_a_user_auth_bad_params(array $data)
+    /** @test */
+    public function registering_a_user_auth_bad_params()
     {
+        $data = [
+            'name' => "Jon Jones",
+            'email' => 'JonJones',
+            'password' => '123456',
+        ];
 
-    $response = $this->basicData($data);
+        $response = $this->basicData($data);
 
-    $response->assertStatus(422);
-            
+        $response->assertStatus(422);     
     }
 
-    //delete
     /** @test */
     public function delete_user_success()
     {
-        [$user, $token] = $this->createUserToken();
+        [$user, $token] = createUserToken();
     
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
@@ -134,8 +131,7 @@ class UserControllerTest extends TestCase
     //support methods
     private function basicData(array $data)
     {
-    return $this->postJson('/api/register', $data);
-
+        return $this->postJson('/api/register', $data);
     }
 
     private function createUserToken() 
@@ -148,41 +144,5 @@ class UserControllerTest extends TestCase
         return [$user, $token];
         
     }
-
-     //providers
-     public static function user_bad_mail()
-     {
-        $data = [
-            'name' => "Jon Jones",
-            'email' => 'JonJones',
-            'password' => '123456',
-        ];
-        return [
-            'bad_mail' => $data
-        ];
-     }
-
-     public static function user_bad_name()
-     {
-        $data = [
-            'name' => "Jon Jones",
-            'email' => 'JonJones@gmail.com',
-            'password' => '123456',
-        ];
-        return [
-            'bad_mail' => $data
-        ];
-     }
-
-     public static function user_bad_password()
-     {
-        $data = [
-            'name' => "Jon Jones",
-            'email' => 'JonJones@gmail.com',
-            'password' => 123456,
-        ];
-        return [
-            'bad_mail' => $data
-        ];
-     }  
+ 
 }
