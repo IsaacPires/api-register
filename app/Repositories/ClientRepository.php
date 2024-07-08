@@ -29,6 +29,8 @@ class ClientRepository
                 'phone_one' => $data['client']['phone_one'],
                 'phone_two' => $data['client']['phone_two'] ?? null,
                 'address_id' => $address->id,
+                'permission' => $data['client']['permission'] ?? null,
+
             ]);
 
             $client->save();

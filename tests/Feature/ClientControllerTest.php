@@ -61,6 +61,7 @@ class ClientControllerTest extends TestCase
                     'cpf',
                     'phone_one',
                     'phone_two',
+                    'permission',
                     'address' => [
                         'street',
                         'number',
@@ -180,6 +181,7 @@ class ClientControllerTest extends TestCase
                 'cpf' => '123.456.789-00',
                 'phone_one' => '(99) 9999-9999',
                 'phone_two' => '(88) 8888-8888',
+                'permission' => 'Admin'
             ],
             'address' => [
                 'street' => 'Rua Nova',
@@ -262,6 +264,7 @@ class ClientControllerTest extends TestCase
             'cpf' => '12332112393',
             'phone_one' => '11987654321',
             'phone_two' => '11912345678',
+            'permission' => 'Admin',
             'address_id' => $address->id,
         ]);
 
