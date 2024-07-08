@@ -1,9 +1,14 @@
-# Instruções de uso
+# Instruções 
+
+Esta é uma API dividida em dois pontos principais:
+
+- User: Aqui você encontrará métodos para realizar o cadastro de usuários na API e gerar seus tokens de acesso;
+- Client: Aqui estarão todos os endpoints para cadastrar seus clientes. Você pode realizar todas as operações propostas por um CRUD.
 
 ## Requisitos
 
 - Rodar Migrations;
-- Criar env.testing para conseguir realizar todos os testes;
+- Criar "env.testing" para conseguir realizar todos os testes;
 
 ## Primeiros passos
 
