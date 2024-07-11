@@ -15,11 +15,14 @@ use App\Http\Controllers\ClientController;
 |
 */
 
-Route::post('register', [UserController::class, 'register']);
-Route::post('login', [UserController::class, 'login']);
-
+Route::post('user/register', [UserController::class, 'register']);
+Route::post('user/login', [UserController::class, 'login']);
+Route::get('/teste', function(){
+    echo 'Hi';
+});
 Route::group(['middleware' => 'jwt.verify'], function () {
-    Route::delete('user', [UserController::class, 'delete']);
+
+    Route::delete('user/delete/{id}', [UserController::class, 'delete']);
     Route::apiResource('client', ClientController::class);
 });
 
